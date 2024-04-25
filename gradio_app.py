@@ -113,10 +113,10 @@ class TextGeneration:
     def load(self):
         logger.info("Loading model...")
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name_or_path, use_auth_token=HF_AUTH_TOKEN if HF_AUTH_TOKEN else None,
+            self.model_name_or_path, token=HF_AUTH_TOKEN if HF_AUTH_TOKEN else None,
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name_or_path, use_auth_token=HF_AUTH_TOKEN if HF_AUTH_TOKEN else None,
+            self.model_name_or_path, token=HF_AUTH_TOKEN if HF_AUTH_TOKEN else None,
             pad_token_id=self.tokenizer.eos_token_id, eos_token_id=self.tokenizer.eos_token_id,
             torch_dtype=DTYPE, low_cpu_mem_usage=False if DEVICE == "cpu" else True
         ).to(device=DEVICE, non_blocking=False)
